@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-.container-500 {
-  height: 500px;
+.container-vh100 {
+  height: 100vh;
 }
 
 .tab-panel {
