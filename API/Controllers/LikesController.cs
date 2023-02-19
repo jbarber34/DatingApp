@@ -31,7 +31,11 @@ namespace API.Controllers
 
             var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.id);
 
-            if (userLike != null) return BadRequest("You already like this user");
+            if (userLike != null)
+            {
+                sourceUser.LikedUsers.Remove(userLike);
+                return Ok();
+            }
 
             userLike = new UserLike
             {
