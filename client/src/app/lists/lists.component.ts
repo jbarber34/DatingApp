@@ -14,6 +14,7 @@ export class ListsComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination | undefined;
+  liked = this.predicate == 'liked' ? true : false;
 
   constructor(private memberService: MemberService) {}
 
