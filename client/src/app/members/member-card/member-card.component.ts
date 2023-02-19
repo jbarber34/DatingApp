@@ -30,9 +30,8 @@ export class MemberCardComponent implements OnInit {
       this.memberService.likeToggle(member.userName).subscribe({
         next: () => this.toaster.success('You have unliked ' + member.knownAs),
       });
-      console.log(liked);
       this.liked = true;
-      console.log(liked);
+      setTimeout(() => location.reload(), 2000);
     }
   }
 }
