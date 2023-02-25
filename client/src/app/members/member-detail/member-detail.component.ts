@@ -6,7 +6,7 @@ import {
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/_models/member';
-import { MemberService } from 'src/app/_services/member.service';
+import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -19,7 +19,7 @@ export class MemberDetailComponent implements OnInit {
   galleryImages: NgxGalleryImage[] = [];
 
   constructor(
-    private memberService: MemberService,
+    private membersService: MembersService,
     private route: ActivatedRoute
   ) {}
 
@@ -54,7 +54,7 @@ export class MemberDetailComponent implements OnInit {
   loadMember() {
     const username = this.route.snapshot.paramMap.get('username');
     if (!username) return;
-    this.memberService.getMember(username).subscribe({
+    this.membersService.getMember(username).subscribe({
       next: (member) => {
         this.member = member;
         this.galleryImages = this.getImages();
