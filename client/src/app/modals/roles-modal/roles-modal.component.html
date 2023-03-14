@@ -17,7 +17,7 @@
         class="form-check-input"
         [checked]="selectedRoles.includes(role)"
         value="role"
-        (change)="(updateChecked)"
+        (change)="updateChecked(role)"
         [disabled]="role === 'Admin' && username == 'admin'"
       />
       <label>{{ role }}</label>
