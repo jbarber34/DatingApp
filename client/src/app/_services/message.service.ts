@@ -34,8 +34,10 @@ export class MessageService {
     });
   }
 
-  stropHubConnection() {
-    this.hubConnection?.stop();
+  stopHubConnection() {
+    if (this.hubConnection) {
+      this.hubConnection.stop();
+    }
   }
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
