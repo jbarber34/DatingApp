@@ -9,7 +9,7 @@ import { AccountService } from './_services/account.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'Dating App'; // Don't need to specify type because a string is hard coded
+  title = 'Meet Your Match'; // Don't need to specify type because a string is hard coded
   // users: any;
 
   constructor(
