@@ -69,8 +69,6 @@ namespace API.Controllers
         {
             var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            if (user == null) return NotFound();
-
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
@@ -81,13 +79,11 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            if (user.Photos.Count == 0) photo.IsMain = true;
-
             user.Photos.Add(photo);
 
             if (await _uow.Complete())
             {
-                return CreatedAtAction(nameof(GetUser),
+                return CreatedAtAction("GetUser",
                     new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
             }
 
