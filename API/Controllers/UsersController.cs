@@ -83,7 +83,7 @@ namespace API.Controllers
 
             if (await _uow.Complete())
             {
-                return CreatedAtAction("GetUser",
+                return CreatedAtAction(nameof(GetUser),
                     new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
             }
 
@@ -117,7 +117,7 @@ namespace API.Controllers
         {
             var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+            var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
 
             if (photo == null) return NotFound();
 
