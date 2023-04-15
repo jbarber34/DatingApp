@@ -1,3 +1,4 @@
+using System.Dynamic;
 using API.Data;
 using API.Entities;
 using API.Extensions;
@@ -44,7 +45,7 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
-    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
+    await Seed.ClearConnections(context);
     await Seed.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
