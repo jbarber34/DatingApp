@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for meet-your-match on 2023-04-19T09:43:42-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "meet-your-match"
+primary_region = "mia"
+
+[build]
+  image = "jbarber34/meetyourmatch:latest"
+
+  [env]
+    ASPNETCORE_URLS="http://+:8080"
+    CloudinarySettings__CloudName="dwqttteir"
+    CloudinarySettings__ApiKey="386766269348911"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
