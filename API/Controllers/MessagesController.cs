@@ -71,12 +71,12 @@ namespace API.Controllers
             return Ok(await _messageRepository.GetMessageThread(currentUserName, username));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteMessage(int id)
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteMessage(int Id)
         {
             var username = User.GetUsername();
 
-            var message = await _messageRepository.GetMessage(id);
+            var message = await _messageRepository.GetMessage(Id);
 
             if (message.SenderUsername != username && message.RecipientUsername != username)
                 return Unauthorized();
