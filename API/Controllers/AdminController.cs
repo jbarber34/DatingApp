@@ -12,8 +12,8 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _uow;
-        private readonly PhotoService _photoService;
-        public AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, PhotoService photoService)
+        private readonly IPhotoService _photoService;
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, IPhotoService photoService)
         {
             _photoService = photoService;
             _uow = uow;
@@ -77,7 +77,13 @@ namespace API.Controllers
         {
             var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
 
+            if (photo == null) return NotFound("Could not find photo");
+
             photo.IsApproved = true;
+
+            var user = await _uow.UserRepository.GetUserByPhotoId(photoId);
+
+            if (!user.Photos.Any(x => x.IsMain)) photo.IsMain = true;
 
             await _uow.Complete();
 
