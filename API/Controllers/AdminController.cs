@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Interfaces;
+using API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,10 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _uow;
-        public AdminController(UserManager<AppUser> userManager, IUnitOfWork uow)
+        private readonly PhotoService _photoService;
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, PhotoService photoService)
         {
+            _photoService = photoService;
             _uow = uow;
             _userManager = userManager;
         }
@@ -75,6 +78,31 @@ namespace API.Controllers
             var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
 
             photo.IsApproved = true;
+
+            await _uow.Complete();
+
+            return Ok();
+        }
+
+        [Authorize(Policy = "ModeratePhotoRole")]
+        [HttpPost("reject-photo/{photoId}")]
+        public async Task<ActionResult> RejectPhoto(int photoId)
+        {
+            var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+
+                if (result.Result == "ok")
+                {
+                    _uow.PhotoRepository.RemovePhoto(photo);
+                }
+            }
+            else
+            {
+                _uow.PhotoRepository.RemovePhoto(photo);
+            }
 
             await _uow.Complete();
 
