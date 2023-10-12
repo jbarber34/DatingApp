@@ -12,6 +12,8 @@
       </button>
       <button
         class="btn btn-sm rounded"
+        [disabled]="photo.isMain"
+        (click)="deletePhoto(photo.id)"
         [ngClass]="
           photo.isMain ? 'btn-danger' : 'btn-danger btn-outline-danger'
         "
