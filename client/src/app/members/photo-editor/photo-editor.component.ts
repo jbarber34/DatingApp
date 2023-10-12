@@ -5,7 +5,7 @@ import { Member } from 'src/app/_models/member';
 import { Photo } from 'src/app/_models/photo';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
-import { MemberService } from 'src/app/_services/member.service';
+import { MembersService } from 'src/app/_services/members.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -22,7 +22,7 @@ export class PhotoEditorComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private memberService: MemberService
+    private membersService: MembersService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => {
@@ -40,7 +40,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   setMainPhoto(photo: Photo) {
-    this.memberService.setMainPhoto(photo.id).subscribe({
+    this.membersService.setMainPhoto(photo.id).subscribe({
       next: () => {
         if (this.user && this.member) {
           this.user.photoUrl = photo.url;
@@ -56,7 +56,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   deletePhoto(photoId: number) {
-    this.memberService.deletePhoto(photoId).subscribe({
+    this.membersService.deletePhoto(photoId).subscribe({
       next: (_) => {
         if (this.member) {
           this.member.photos = this.member.photos.filter(

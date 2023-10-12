@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/_models/member';
-import { MemberService } from 'src/app/_services/member.service';
+import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
   selector: 'app-member-card',
@@ -13,7 +13,7 @@ export class MemberCardComponent implements OnInit {
   @Input() liked: boolean = true;
 
   constructor(
-    private memberService: MemberService,
+    private membersService: MembersService,
     private toaster: ToastrService
   ) {}
 
@@ -21,13 +21,13 @@ export class MemberCardComponent implements OnInit {
 
   likeToggle(member: Member, liked: boolean) {
     if (liked == true) {
-      this.memberService.likeToggle(member.userName).subscribe({
+      this.membersService.likeToggle(member.userName).subscribe({
         next: () => this.toaster.success('You have liked ' + member.knownAs),
       });
       this.liked = !this.liked;
     }
     if (liked != true) {
-      this.memberService.likeToggle(member.userName).subscribe({
+      this.membersService.likeToggle(member.userName).subscribe({
         next: () => this.toaster.success('You have unliked ' + member.knownAs),
       });
       this.liked = true;
