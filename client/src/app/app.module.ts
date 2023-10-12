@@ -27,6 +27,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     DatePickerComponent,
     DateAgoPipe,
     MemberMessagesComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,
