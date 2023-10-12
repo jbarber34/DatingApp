@@ -67,5 +67,18 @@ namespace API.Controllers
 
             return Ok(photos);
         }
+
+        [Authorize(Policy = "ModeratePhotoRole")]
+        [HttpPost("approve-photo/{photoId}")]
+        public async Task<ActionResult> ApprovePhoto(int photoId)
+        {
+            var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
+
+            photo.IsApproved = true;
+
+            await _uow.Complete();
+
+            return Ok();
+        }
     }
 }
