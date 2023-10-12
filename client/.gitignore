@@ -41,7 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 /bin
 =======
 >>>>>>> 4802501 (Add Angular to the project)
+=======
+>>>>>>> 94537a8e80f1c5035497f4da4c6b9bd949a8abbb
