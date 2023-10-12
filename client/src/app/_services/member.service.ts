@@ -100,7 +100,7 @@ export class MemberService {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 
-  likeToggle(username: string, predicate: string) {
+  likeToggle(username: string) {
     return this.http.post(this.baseUrl + 'likes/' + username, {});
   }
 

@@ -10,7 +10,7 @@ import { MemberService } from 'src/app/_services/member.service';
 })
 export class MemberCardComponent implements OnInit {
   @Input() member: Member | undefined;
-  @Input() predicate: string = 'liked';
+  @Input() liked: boolean = true;
 
   constructor(
     private memberService: MemberService,
@@ -19,17 +19,20 @@ export class MemberCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  likeToggle(member: Member, predicate: string) {
-    if (this.predicate == 'liked') {
-      this.predicate = 'unlike';
-      this.memberService.likeToggle(member.userName, predicate).subscribe({
+  likeToggle(member: Member, liked: boolean) {
+    if (liked == true) {
+      this.memberService.likeToggle(member.userName).subscribe({
         next: () => this.toaster.success('You have liked ' + member.knownAs),
       });
-    } else {
-      this.predicate = 'like';
-      this.memberService.likeToggle(member.userName, predicate).subscribe({
+      this.liked = !this.liked;
+    }
+    if (liked != true) {
+      this.memberService.likeToggle(member.userName).subscribe({
         next: () => this.toaster.success('You have unliked ' + member.knownAs),
       });
+      console.log(liked);
+      this.liked = true;
+      console.log(liked);
     }
   }
 }
